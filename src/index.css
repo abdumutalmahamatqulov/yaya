@@ -1,0 +1,30 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import "flowbite";
+
+.Oswald {
+    font-family: "Oswald", serif;
+}
+
+.home {
+    background-image: url(./assets/Fon.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+
+}
+
+.bg {
+    background-image: url(./assets/Rectangle.png);
+    background-position: center;
+    background-size: cover;
+}
+.catalog {
+    background-image: url(./assets/Bliur.png);
+    background-position: center;
+    background-size: cover;
+} 
+.slider-container{
+    width: 100%;
+}
+
