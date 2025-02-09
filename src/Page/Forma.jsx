@@ -5,6 +5,36 @@ const Forma = () => {
     const [phone, setPhone] = useState("");
     const [isModalOpen, setIsModalOpen] = useState(false);
 
+    const formatFullName = (value) => {
+        return value.replace(/[^a-zA-Z\s]/g, "").replace(/\b\w/g, char => char.toUpperCase());
+    }
+
+    const formatPhone = (value) => {
+        // Faqat raqamlarni olish
+        let digits = value.replace(/\D/g, "");
+    
+        // Oʻzbekiston kodini tekshirish
+        if (digits.startsWith("998")) {
+          digits = digits.slice(3);
+        }
+    
+        // Faqat 9 ta raqam olish
+        digits = digits.slice(0, 9);
+    
+        // Agar foydalanuvchi hammasini o‘chirsa, bo‘sh qoldirish
+        if (digits.length === 0) return "";
+    
+        // Formatlash
+        const formatted = digits.replace(/(\d{2})(\d{3})(\d{2})(\d{2})/, "($1)-$2-$3-$4");
+        return `+998-${formatted}`;
+      };
+    
+      const handleChange = (e) => {
+        const value = e.target.value;
+        setPhone(formatPhone(value));
+      };
+
+
     const handleSubmit = () => {
         if (!fullName || !phone) {
             alert("Please fill in all fields.");
@@ -46,14 +76,14 @@ const Forma = () => {
                             className="w-[371px] h-[60px] font-[400] text-[20px] rounded-[20px] bg-[#103352] px-4 mb-6 text-white" 
                             placeholder="Full Name"
                             value={fullName}
-                            onChange={(e) => setFullName(e.target.value)}
+                            onChange={(e) => setFullName(formatFullName(e.target.value))}
                         />
                         <input 
                             type="text" 
                             className="w-[371px] h-[60px] font-[400] text-[20px] rounded-[20px] bg-[#103352] px-4 mb-6 text-white" 
-                            placeholder="Phone Number"
+                            placeholder="+998-(__)-___-__-__"
                             value={phone}
-                            onChange={(e) => setPhone(e.target.value)}
+                            onChange={handleChange}
                         />
                         <button 
                             onClick={handleSubmit} 
